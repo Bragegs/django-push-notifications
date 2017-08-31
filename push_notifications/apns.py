@@ -152,7 +152,7 @@ def _apns_send(token, alert, badge=None, sound=None, category=None, content_avai
     if socket:
         socket.write(frame)
     else:
-        with closing(_apns_create_socket_to_push(certfile)) as socket:
+        with closing(_apns_create_socket_to_push(certfile=certfile)) as socket:
             socket.write(frame)
             _apns_check_errors(socket)
 
@@ -220,7 +220,7 @@ def apns_send_bulk_message(registration_ids, alert, certfile=None, **kwargs):
     it won't be included in the notification. You will need to pass None
     to this for silent notifications.
     """
-    with closing(_apns_create_socket_to_push(certfile)) as socket:
+    with closing(_apns_create_socket_to_push(certfile=certfile)) as socket:
         for identifier, registration_id in enumerate(registration_ids):
             _apns_send(registration_id, alert, identifier=identifier, socket=socket, certfile=certfile, **kwargs)
         _apns_check_errors(socket)
