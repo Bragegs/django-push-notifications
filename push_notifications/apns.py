@@ -208,7 +208,7 @@ def apns_send_message(registration_id, alert, certfile=None, **kwargs):
     to this for silent notifications.
     """
 
-    _apns_send(registration_id, alert, certfile, **kwargs)
+    _apns_send(registration_id, alert, certfile=certfile, **kwargs)
 
 
 def apns_send_bulk_message(registration_ids, alert, certfile=None, **kwargs):
