@@ -60,7 +60,11 @@ def _gcm_send_plain(registration_id, data, **kwargs):
 	values = {"registration_id": registration_id}
 
 	for k, v in data.items():
-		values["data.%s" % (k)] = v.encode("utf-8")
+		try:
+			value = str(v)
+			values["data.%s" % (k)] = value.encode("utf-8")
+		except AttributeError:
+			continue
 
 	for k, v in kwargs.items():
 		if v:
